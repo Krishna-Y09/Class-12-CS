@@ -1,0 +1,13 @@
+def wordseperated():
+    f = open("sample.txt", "r")
+    lines = f.readlines()
+
+    for i in lines:
+        words = i.split()
+        for word in words:
+            print(word + "#", end=' ')
+        print()                                                                  # Moves to the next line after processing a line of text
+
+    f.close()
+
+wordseperated()
