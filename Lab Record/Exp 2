@@ -1,0 +1,29 @@
+def is_armstrong(number):
+    original_number = number
+    num_str = str(number)
+    num_digits = len(num_str)
+    sum_of_powers = 0
+    temp_number = original_number
+
+    while temp_number > 0:
+        digit = temp_number % 10
+        sum_of_powers += digit ** num_digits
+        temp_number //= 10
+
+    if sum_of_powers == original_number:
+        return True
+    else:
+        return False
+
+try:
+    input_num = int(input("Enter an integer to check if it's an Armstrong number: "))
+
+    if input_num <= 0:
+        print("Please enter a positive integer.")
+    elif is_armstrong(input_num):
+        print(f"\n{input_num} is an Armstrong Number.")
+    else:
+        print(f"\n{input_num} is not an Armstrong Number.")
+
+except ValueError:
+    print("Invalid input! Please enter a valid integer.")
