@@ -1,0 +1,141 @@
+"""
+CBSE Class XII CS Practical Project
+Title: Hospital Management System Backend Connector (SQLite version for Colab)
+"""
+
+import sqlite3
+
+# Database connection + setup
+def connect_database():
+    conn = sqlite3.connect("hospital_db.sqlite")  # Creates file-based DB in Colab
+    cursor = conn.cursor()
+
+    # Create doctors table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS doctors (
+        doc_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        doc_name TEXT NOT NULL,
+        specialization TEXT NOT NULL
+    )
+    """)
+
+    # Create patients table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS patients (
+        pat_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        pat_name TEXT NOT NULL,
+        age INTEGER NOT NULL,
+        gender TEXT NOT NULL,
+        disease TEXT NOT NULL,
+        assigned_doc INTEGER,
+        FOREIGN KEY (assigned_doc) REFERENCES doctors(doc_id)
+    )
+    """)
+
+    conn.commit()
+    return conn
+
+# Functions
+def register_patient(conn):
+    cursor = conn.cursor()
+    print("\n--- New Patient Registration ---")
+    name = input("Enter Patient Name: ")
+    age = int(input("Enter Age: "))
+    gender = input("Enter Gender (M/F/O): ").upper()
+    disease = input("Enter Primary Diagnosis: ")
+
+    cursor.execute("SELECT doc_id, doc_name, specialization FROM doctors")
+    docs = cursor.fetchall()
+    if not docs:
+        print("⚠️ No doctors found. Please register doctors first.")
+        return
+
+    print("\nAvailable Specialized Doctors:")
+    for d in docs:
+        print(f" ID: {d[0]} | Name: {d[1]} | Dept: {d[2]}")
+
+    doc_id = int(input("\nAssign Doctor ID from listing above: "))
+
+    query = "INSERT INTO patients (pat_name, age, gender, disease, assigned_doc) VALUES (?, ?, ?, ?, ?)"
+    values = (name, age, gender, disease, doc_id)
+
+    try:
+        cursor.execute(query, values)
+        conn.commit()
+        print("✅ SUCCESS: Patient file created successfully!")
+    except sqlite3.Error as err:
+        print(f"❌ FAILURE: Data registration aborted: {err}")
+
+def view_patients(conn):
+    cursor = conn.cursor()
+    query = """
+        SELECT p.pat_id, p.pat_name, p.age, p.gender, p.disease, d.doc_name
+        FROM patients p
+        INNER JOIN doctors d ON p.assigned_doc = d.doc_id
+    """
+    cursor.execute(query)
+    records = cursor.fetchall()
+
+    print("\n" + "="*85)
+    print(f"{'ID':<4} | {'Patient Name':<20} | {'Age':<3} | {'Sex':<3} | {'Diagnosis':<25} | {'Assigned Consultant':<20}")
+    print("="*85)
+    for row in records:
+        print(f"{row[0]:<4} | {row[1]:<20} | {row[2]:<3} | {row[3]:<3} | {row[4]:<25} | {row[5]:<20}")
+    print("="*85)
+
+def discharge_patient(conn):
+    cursor = conn.cursor()
+    pid = int(input("Enter Patient ID to discharge: "))
+    try:
+        cursor.execute("DELETE FROM patients WHERE pat_id = ?", (pid,))
+        conn.commit()
+        if cursor.rowcount > 0:
+            print(f"✅ SUCCESS: Patient ID {pid} discharged and records archived.")
+        else:
+            print("⚠️ NOTICE: No active patient entry matched that ID.")
+    except sqlite3.Error as err:
+        print(f"❌ ERROR: Truncation pipeline failed: {err}")
+
+# Sample doctor registration (for testing)
+def seed_doctors(conn):
+    cursor = conn.cursor()
+    doctors = [
+        ("Dr. Mehta", "Cardiology"),
+        ("Dr. Sharma", "Neurology"),
+        ("Dr. Khan", "Orthopedics")
+    ]
+    cursor.executemany("INSERT INTO doctors (doc_name, specialization) VALUES (?, ?)", doctors)
+    conn.commit()
+    print("✅ Sample doctors inserted.")
+
+# Main Menu
+def main():
+    conn = connect_database()
+
+    # Seed doctors once for demo
+    seed_doctors(conn)
+
+    while True:
+        print("\n===== Hospital Management System =====")
+        print("1. Register New Patient")
+        print("2. View All Patients")
+        print("3. Discharge Patient")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            register_patient(conn)
+        elif choice == "2":
+            view_patients(conn)
+        elif choice == "3":
+            discharge_patient(conn)
+        elif choice == "4":
+            print("👋 Exiting system. Goodbye!")
+            conn.close()
+            break
+        else:
+            print("⚠️ Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
