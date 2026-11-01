@@ -1,0 +1,23 @@
+def remove():
+                                                                                 # 1. Read all lines from the original file
+    f = open("sampleold.txt", "r")
+    lines = f.readlines()
+    print(lines)
+    f.close()
+
+                                                                                 # 2. Open two separate files for writing
+    fo = open("sampleold.txt", "w")
+    fn = open("samplenew.txt", "w")
+
+                                                                                 # 3. Filter lines based on the presence of "a"
+    for line in lines:
+        if "a" in line:
+            fn.write(line)
+        else:
+            fo.write(line)
+
+                                                                                 # 4. Properly close the resources
+    fn.close()
+    fo.close()
+
+remove()
