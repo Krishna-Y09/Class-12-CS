@@ -1,0 +1,10 @@
+import random
+
+while True:
+    choice = input("\n Do you want to roll the dice (y/n): ")
+    no = random.randint(1, 6)
+
+    if choice == "y":
+        print("\n your number is : ", no)
+    else:
+        break
