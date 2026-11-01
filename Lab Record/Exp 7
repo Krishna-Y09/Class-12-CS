@@ -1,0 +1,29 @@
+def countvcal():
+    f = open("sample.txt", "r")
+    data = f.read()
+                                                                                 # Initialize all counters to 0
+    v = c = U = l = 0
+
+    for i in data:
+        if i.isalpha():
+                                                                                 # Count uppercase and lowercase
+            if i.isupper():
+                U += 1
+            else:
+                l += 1
+
+            # FIX: Nested inside isalpha() so spaces/symbols aren't counted as consonants
+            if i in "AEIOUaeiou":
+                v += 1
+            else:
+                c += 1
+
+    f.close()
+
+    print("number of vowels = ", v)
+    print("number of consonants = ", c)
+    print("number of uppercase = ", U)
+    print("number of lowercase = ", l)
+
+                                                                                 # Call the function
+countvcal()
