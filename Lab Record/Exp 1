@@ -1,0 +1,43 @@
+def display_menu():
+    print("\n---")
+    print("1. Find Ascii/ordinal value of a character")
+    print("2. Find character from an ASCII/ordinal value")
+    print("3. Exit")
+    print(" ------------------------ ")
+
+def get_char_ascii():
+    try:
+        char_input = input("Enter a single character: ")
+        if len(char_input) != 1:
+            print("Error: Please enter only one characters.")
+            return
+        ascii_value = ord(char_input)
+        print("the ascii value of given char is ", ascii_value)
+    except Exception as e:
+        print(f"An unexpected error occured: {e}")
+
+def get_ascii_char():
+    try:
+        ascii_input = int(input("Enter an integer Ascii value (eg: 65 to 122): "))
+        if 0 <= ascii_input <= 255:
+            character = chr(ascii_input)
+            print(f"The character for ASCII value {ascii_input} is : '{character}'")
+        else:
+            print("Error: Please enter a typical ASCII value (0-255).")
+    except ValueError:
+        print("Error: Invalid input. Please enter a valid integer.")
+    except Exception as e:
+        print(f"An unexpected error occurred : {e}")
+
+while True:
+    display_menu()
+    choice = input("Enter your choice (1, 2, or 3): ")
+    if choice == '1':
+        get_char_ascii()
+    elif choice == '2':
+        get_ascii_char()
+    elif choice == '3':
+        print("Exiting program goodbye!")
+        break
+    else:
+        print("Invalid choice. Please select 1, 2, or 3")
