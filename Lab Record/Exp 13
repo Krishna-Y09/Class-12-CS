@@ -1,0 +1,50 @@
+import csv
+
+# Function to create CSV file
+def create_file():
+    with open("employee.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+
+        # Writing header
+        writer.writerow(["EmpNo", "Name", "Salary"])
+
+        n = int(input("Enter number of employees: "))
+
+        for i in range(n):
+            empno = int(input("Enter Employee Number: "))
+            name = input("Enter Name: ")
+            salary = float(input("Enter Salary: "))
+
+            writer.writerow([empno, name, salary])
+
+    print("CSV file created successfully.")
+
+# Function to search employee
+def search_employee(emp_search):
+    try:
+        with open("employee.csv", "r") as f:
+            reader = csv.reader(f)
+
+            next(reader)  # Skip header row
+
+            found = False
+
+            for row in reader:
+                if int(row[0]) == emp_search:
+                    print("\nEmployee Found")
+                    print("Name:", row[1])
+                    print("Salary:", row[2])
+                    found = True
+                    break
+
+            if not found:
+                print("Employee Number not found.")
+
+    except FileNotFoundError:
+        print("CSV file does not exist.")
+
+# Main Program
+create_file()
+
+empno = int(input("\nEnter Employee Number to search: "))
+search_employee(empno)
