@@ -1,0 +1,36 @@
+import pickle
+
+def write_records():
+    students = [
+        (101, "Aman"),
+        (102, "Riya"),
+        (103, "Karan"),
+        (104, "Sneha")
+    ]
+
+    with open("student.dat", "wb") as f:
+        pickle.dump(students, f)
+        print("Binary file created successfully.")
+
+def search_record(roll_no):
+    try:
+        with open("student.dat", "rb") as f:
+            students = pickle.load(f)
+    except FileNotFoundError:
+        print("File not found. Please create the data first.")
+        return
+
+    for rno, name in students:
+        if rno == roll_no:
+            print(f"Roll Number: {rno}")
+            print(f"Name: {name}")
+            return
+
+    print("Record not found.")
+
+# Create binary file
+write_records()
+
+# Search for a roll number
+search_roll = int(input("Enter roll number to search: "))
+search_record(search_roll)
