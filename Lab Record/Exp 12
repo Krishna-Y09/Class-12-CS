@@ -1,0 +1,73 @@
+import pickle
+
+# Function to create binary file
+def create_file():
+    students = []
+
+    n = int(input("Enter number of students: "))
+
+    for i in range(n):
+        roll = int(input("Enter Roll Number: "))
+        name = input("Enter Name: ")
+        marks = float(input("Enter Marks: "))
+
+        students.append([roll, name, marks])
+
+    with open("student.dat", "wb") as f:
+        pickle.dump(students, f)
+
+    print("Binary file created successfully.")
+
+# Function to update marks
+def update_marks():
+    roll_search = int(input("Enter Roll Number to update: "))
+
+    try:
+        with open("student.dat", "rb") as f:
+            students = pickle.load(f)
+
+        found = False
+
+        for record in students:
+            if record[0] == roll_search:
+                print("Current Record:", record)
+
+                new_marks = float(input("Enter New Marks: "))
+                record[2] = new_marks
+
+                found = True
+                break
+
+        if found:
+            with open("student.dat", "wb") as f:
+                pickle.dump(students, f)
+
+            print("Marks updated successfully.")
+        else:
+            print("Record not found.")
+
+    except FileNotFoundError:
+        print("File does not exist.")
+
+# Function to display records
+def display_records():
+    try:
+        with open("student.dat", "rb") as f:
+            students = pickle.load(f)
+
+        print("\nStudent Records")
+        print("-------------------------")
+
+        for record in students:
+            print("Roll No:", record[0],
+                  "Name:", record[1],
+                  "Marks:", record[2])
+
+    except FileNotFoundError:
+        print("File not found.")
+
+# Main Program
+create_file()
+display_records()
+update_marks()
+display_records()
