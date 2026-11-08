@@ -32,8 +32,8 @@ def copy_records():
 
         print("Records copied successfully.")
 
-    except FileNotFoundError:
-        print("Source file not found.")
+    except FileNotFoundError:            # We can ignore try...except in this case because the file is already given in the def create_file
+        print("Source file not found.")  # But it is advised to use except as in production-level codes, user may delete the file
 
 # Function to display records of new file
 def display():
