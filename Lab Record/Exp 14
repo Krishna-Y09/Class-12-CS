@@ -1,0 +1,54 @@
+import pickle
+
+# Function to create the original binary file
+def create_file():
+    students = [
+        [101, "Aman", 95],
+        [102, "Riya", 88],
+        [103, "Karan", 92],
+        [104, "Sneha", 85],
+        [105, "Priya", 90]
+    ]
+
+    with open("student.dat", "wb") as f:
+        pickle.dump(students, f)
+
+    print("Original file created.")
+
+# Function to copy records having percentage >= 90
+def copy_records():
+    try:
+        with open("student.dat", "rb") as f:
+            students = pickle.load(f)
+
+        topper_list = []
+
+        for record in students:
+            if record[2] >= 90:      # Percentage field
+                topper_list.append(record)
+
+        with open("topper.dat", "wb") as f:
+            pickle.dump(topper_list, f)
+
+        print("Records copied successfully.")
+
+    except FileNotFoundError:
+        print("Source file not found.")
+
+# Function to display records of new file
+def display():
+    with open("topper.dat", "rb") as f:
+        records = pickle.load(f)
+
+    print("\nStudents with Percentage 90 and Above")
+    print("------------------------------------")
+
+    for rec in records:
+        print("Roll No:", rec[0],
+              "Name:", rec[1],
+              "Percentage:", rec[2])
+
+# Main Program
+create_file()
+copy_records()
+display()
