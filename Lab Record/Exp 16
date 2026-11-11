@@ -1,0 +1,32 @@
+# pip install mysql-connector-python                ------- in terminal/shell
+
+import mysql.connector
+                                                      # Connect to MySQL Server
+con = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root"
+)
+
+cur = con.cursor()
+
+# Create Database
+cur.execute("CREATE DATABASE IF NOT EXISTS EmployeeDB")
+print("Database created successfully.")
+
+# Select Database
+cur.execute("USE EmployeeDB")
+
+# Create Employee Table
+cur.execute("""
+CREATE TABLE IF NOT EXISTS EMPLOYEE(
+    EmpNo INT PRIMARY KEY,
+    Name VARCHAR(30),
+    Salary FLOAT
+)
+""")
+
+print("Table created successfully.")
+
+# Close Connection
+con.close()
