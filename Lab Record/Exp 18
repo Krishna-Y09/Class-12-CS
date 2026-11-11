@@ -1,0 +1,33 @@
+import mysql.connector
+
+# Connect to MySQL Database
+con = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="EmployeeDB"
+)
+
+cur = con.cursor()
+
+# Input EMPID to search
+empid = int(input("Enter Employee ID to search: "))
+
+# Execute search query
+sql = "SELECT * FROM EMPLOYEE WHERE EmpNo = %s"
+cur.execute(sql, (empid,))
+
+# Fetch record
+record = cur.fetchone()
+
+# Display result
+if record:
+    print("\nEmployee Record Found")
+    print("Employee ID :", record[0])
+    print("Name        :", record[1])
+    print("Salary      :", record[2])
+else:
+    print("Employee Record Not Found")
+
+# Close connection
+con.close()
