@@ -1,0 +1,31 @@
+
+Rollno	Name	Gender	Age	Dept	DOA	Fees
+1	Arun	M	24	COMPUTER	1997-01-10	120
+2	Ankit	M	21	HISTORY	1998-03-24	200
+3	Anu	F	20	HINDI	1996-12-12	300
+4	Bala	M	19	NULL	1999-07-01	400
+5	Charan	M	18	HINDI	1997-09-05	250
+6	Deepa	F	19	HISTORY	1997-06-27	300
+7	Dinesh	M	22	COMPUTER	1997-02-25	210
+8	Usha	F	23	NULL	1997-07-31	200
+
+
+Questions and Answers
+
+a. Write a query to delete the details of roll number is 8
+DELETE FROM STU WHERE ROLL NO = 8;
+
+b. Write a query to change the fees of student 170 whose roll number is 1 if the existing fees is less than 130
+UPDATE STU SET FEES = 170 WHERE ROLL NO = 1 AND FEES < 130;
+
+c. Write a query to add a new column area of type varchar in table STU
+ALTER TABLE STU ADD AREA VARCHAR (20);
+
+d. Write a query to Display Name of all students whose Area contains NULL.
+SELECT NAME FROM STU WHERE AREA IS NULL;
+
+e. Write a query to delete Area column from the table STU
+ALTER TABLE STU DROP AREA;
+
+f. Write a query to delete table from Database
+DROP TABLE STU;
