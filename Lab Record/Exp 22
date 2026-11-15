@@ -1,0 +1,24 @@
+
+Rollno	Name	Gender	Age	Dept	DOA	Fees
+1	Arun	M	24	COMPUTER	1997-01-10	120
+2	Ankit	M	21	HISTORY	1998-03-24	200
+3	Anu	F	20	HINDI	1996-12-12	300
+4	Bala	M	19	NULL	1999-07-01	400
+5	Charan	M	18	HINDI	1999-06-27	250
+6	Deepa	F	19	HISTORY	1997-02-27	300
+7	Dinesh	M	22	COMPUTER	1997-02-25	210
+8	Usha	F	23	NULL	1997-07-31	200
+
+Questions & Answers
+
+a. Write a query to list name of female student in Hindi department
+SELECT NAME FROM STU WHERE DEPT = 'HINDI' AND GENDER = 'F';
+
+b. Write a query to list name of the students whose ages are between 18 to 20
+SELECT NAME FROM STU WHERE AGE BETWEEN 18 AND 20;
+
+c. Write a query to display the name of the students whose name is starting with 'A'
+SELECT NAME FROM STU WHERE NAME LIKE 'A%';
+
+d. Write a query to list the name of those students whose name have second alphabet 'n' in their name
+SELECT NAME FROM STU WHERE NAME LIKE "_N%";
