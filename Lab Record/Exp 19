@@ -1,0 +1,49 @@
+import mysql.connector
+
+# Connect to MySQL
+con = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="EmployeeDB"
+)
+
+cur = con.cursor()
+
+# Input EMPID
+empid = int(input("Enter Employee ID to update: "))
+
+# Search employee
+sql = "SELECT * FROM EMPLOYEE WHERE EmpNo=%s"
+cur.execute(sql, (empid,))
+
+record = cur.fetchone()
+
+if record:
+    print("\nEmployee Found")
+    print("EmpNo :", record[0])
+    print("Name  :", record[1])
+    print("Salary:", record[2])
+
+    new_salary = float(input("Enter New Salary: "))
+
+    update_sql = "UPDATE EMPLOYEE SET Salary=%s WHERE EmpNo=%s"
+    cur.execute(update_sql, (new_salary, empid))
+
+    con.commit()
+
+    print("Salary updated successfully.")
+
+    # Display updated record
+    cur.execute("SELECT * FROM EMPLOYEE WHERE EmpNo=%s", (empid,))
+    updated_record = cur.fetchone()
+
+    print("\nUpdated Record")
+    print("EmpNo :", updated_record[0])
+    print("Name  :", updated_record[1])
+    print("Salary:", updated_record[2])
+
+else:
+    print("Employee Record Not Found")
+
+con.close()
