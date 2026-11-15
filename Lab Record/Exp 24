@@ -1,0 +1,35 @@
+TABLE : UNIFORM
+Ucode	Uname	Ucolor	Stock Date
+1	Shirt	White	2021-03-31
+2	Pant	Black	2020-01-01
+3	Skirt	Grey	2021-02-18
+4	Tie	Blue	2019-01-01
+5	Socks	Blue	2019-03-19
+6	Belt	Black	2017-12-09
+
+
+TABLE : COST
+Ucode	Size	Price	Company
+1	M	600	Raymond
+1	L	580	Mathex
+2	XL	620	Mathex
+2	M	810	Yasin
+2	L	940	Raymond
+3	M	770	Yasin
+3	L	880	Galin
+4	S	150	Mathex
+
+a. To Display the average price of all the uniform of Raymond company from the table COST
+SELECT AVG(PRICE) FROM COST WHERE COMPANY='RAYMOND';
+
+b. To Display details of all the uniform in the uniform table in descending order of stock data
+SELECT * FROM UNIFORM ORDER BY STOCK DATA DESC;
+
+c. To Display max price and min price of each company
+SELECT COMPANY, MAX(PRICE), MINI(PRICE) FROM COST GROUP BY COMPANY;
+
+d. To display the company where the number of uniforms size is more than 2
+SELECT COMPANY, COUNT(*) FROM COST GROUP BY COMPANY HAVING COUNT(*) > 2;
+
+e. To display the Ucode, Uname, Ucolor, size, and company of tables uniform and cost
+SELECT UCODE, UNAME, UCOLOR, SIZE, COMPANY, FROM UNIFORM U, COST C, WHERE U.UCODE = C.UCODE
