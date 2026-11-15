@@ -1,0 +1,32 @@
+Rollno	Name	Gender	Age	Dept	DOA	Fees
+1	Arun	M	24	COMPUTER	1997-01-10	120
+2	Ankit	M	21	HISTORY	1998-03-24	200
+3	Anu	F	20	HINDI	1996-12-12	300
+4	Bala	M	19	NULL	1999-07-01	400
+5	Charan	M	18	HINDI	1997-09-05	250
+6	Deepa	F	19	HISTORY	1997-06-27	300
+7	Dinesh	M	22	COMPUTER	1997-02-25	210
+8	Usha	F	23	NULL	1997-07-31	200
+
+
+a) Write a query to insert all the rows of above table into STU table
+INSERT INTO STU VALUES (1, 'Arun', 'M', '24', 'COMPUTER', '1997-01-10', 120);
+INSERT INTO STU VALUES (2, 'Ankit', 'M', 21, 'HISTORY', '1998-03-24', 200);
+INSERT INTO STU VALUES (3, 'Anu', 'F', 20, 'HINDI', '1996-12-12', 300);
+INSERT INTO STU VALUES (4, 'Bala', 'M', 19, 'NULL', '1999-07-01', 400);
+INSERT INTO STU VALUES (5, 'Charan', 'M', 18, 'HINDI', 1997-09-03, 250);
+INSERT INTO STU VALUES (6, 'Deepa', 'F', 19, 'HISTORY', '1997-06-27', 300);
+INSERT INTO STU VALUES (7, 'Dinesh', 'M', 22, 'COMPUTER', '1997-02-25', 210);
+INSERT INTO STU VALUES (8, 'Usha', 'F', 23, 'NULL', '1997-07-31', 200);
+
+b. Write a query to display all the details of the employees from the above table 'STU'
+SELECT * FROM STU;
+
+c. Write a query to Roll no, Name and department of the students from STU table
+SELECT ROLLNO, NAME, DEPT FROM STU;
+
+d. Write a query to select distinct department from STU table
+SELECT DISTINCT (DEPT) FROM STU;
+
+e. To show all information about students of History department
+SELECT * FROM STU WHERE DEPT = 'HISTORY';
