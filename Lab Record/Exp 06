@@ -1,3 +1,6 @@
+with open("sample.txt", "w") as file:
+    file.write("apple\nhello\nsky\nbanana\n")
+
 def wordseperated():
     f = open("sample.txt", "r")
     lines = f.readlines()
