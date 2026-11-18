@@ -18,7 +18,7 @@ def get_char_ascii():
 
 def get_ascii_char():
     try:
-        ascii_input = int(input("Enter an integer Ascii value (eg: 65 to 122): "))
+        ascii_input = int(input("Enter an integer Ascii value: "))
         if 0 <= ascii_input <= 255:
             character = chr(ascii_input)
             print(f"The character for ASCII value {ascii_input} is : '{character}'")
