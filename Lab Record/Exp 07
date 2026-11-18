@@ -1,3 +1,6 @@
+with open("sample.txt", "w") as file:
+    file.write("aPple\nhEllo\nsky\nbAnAna\n")
+
 def countvcal():
     f = open("sample.txt", "r")
     data = f.read()
