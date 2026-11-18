@@ -1,3 +1,6 @@
+with open("sampleold.txt", "w") as file:
+    file.write("apple\nhello\nsky\nbanana\n")
+
 def remove():
                                                                                  # 1. Read all lines from the original file
     f = open("sampleold.txt", "r")
@@ -21,3 +24,9 @@ def remove():
     fo.close()
 
 remove()
+
+with open("samplenew.txt", "r", encoding="utf-8") as fn:
+    print("samplenew.txt:", fn.read())
+
+with open("sampleold.txt", "r", encoding="utf-8") as fo:
+    print("sampleold.txt:", fo.read())
